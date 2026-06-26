@@ -1,0 +1,12 @@
+# LumberLex — development dependencies
+#
+# Library runtime dependencies are declared in pyproject.toml.
+# Install the library in editable mode first:
+#
+#     pip install -e .
+#
+# Then install dev dependencies:
+#
+#     pip install -r requirements.txt
+
+pytest>=7.0

@@ -1,0 +1,11 @@
+input,expected_canonical,expected_size,confidence_min,notes
+Lowes Whitewood Stud 2x4,SPF,2x4,0.75,Warn about whitewood ambiguity
+Construction White Wood 2 x 4,SPF,2x4,0.7,Trade-name ambiguity
+Douglass Fir 2x8,Douglas Fir-Larch,2x8,0.8,Typo should match Douglas Fir
+Doug Fir-Larch,Douglas Fir-Larch,,0.75,Abbreviation should match
+SYP PT 4x4x8,Pressure Treated Southern Yellow Pine,4x4x8,0.8,Treatment detected
+Hem Fir 2x6,Hem-Fir,2x6,0.8,Space/hyphen tolerant
+random unknown board xyz,UNKNOWN,,,Must not be falsely confident
+7/16 OSB sheathing 4x8,OSB,7/16x4x8,0.8,Panel product
+3/4 birch ply cabinet panel,Birch Plywood,3/4,0.7,Plywood alias
+PT Yellow Pine 4x4,Pressure Treated Southern Yellow Pine,4x4,0.8,Treatment + species group

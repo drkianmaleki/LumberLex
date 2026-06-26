@@ -1,0 +1,56 @@
+# LumberLex — Tunable Thresholds
+# ─────────────────────────────────────────────────────────────────────
+# Adjust values here to calibrate matching behaviour.
+# No source code changes required. Restart the application to apply.
+#
+# !! Path dependency !!
+# src/config.py locates this file relative to its own location
+# (../config/thresholds.yml). If either file is moved, update
+# _CONFIG_PATH in src/config.py accordingly.
+# See README.md — Configuration section.
+
+# ── Phase 4: Fuzzy Matching ──────────────────────────────────────────
+fuzzy_matching:
+  # Raw RapidFuzz token_sort_ratio score (0–100) below which
+  # manual_review_required is set to True.
+  # Lower value = stricter flagging. Higher value = more permissive.
+  manual_review_threshold: 70
+
+# ── Phase 4: Confidence Bands ────────────────────────────────────────
+confidence_bands:
+  # Exact alias dict lookup (bypasses fuzzy entirely).
+  exact_match: 0.95
+
+  # Fuzzy score >= 90.
+  # A fuzzy score of exactly 100 (e.g. token-order variant) is also
+  # mapped here — information quality is equivalent to an exact hit.
+  score_90_plus: 0.85
+
+  # Fuzzy score 80–89.
+  score_80_to_89: 0.75
+
+  # Fuzzy score 70–79  (i.e. >= manual_review_threshold and < 80).
+  score_70_to_79: 0.70
+
+  # Sub-threshold formula: confidence = (score / threshold) * scale
+  # Guarantees confidence < score_70_to_79 for all sub-threshold scores.
+  # Example values at default settings:
+  #   score 69 → 0.532  |  score 35 → 0.270  |  score 0 → 0.000
+  sub_threshold_scale: 0.54
+
+# ── Phase 5: Normalizer (reserved) ───────────────────────────────────
+# normalizer:
+#   Placeholder — confidence calibration thresholds to be added in Phase 5.
+
+# ── Phase 6: Batch Evaluation ────────────────────────────────────────
+batch_evaluation:
+  # Live baseline (post-patch, 596 rows): 75.9% (447 / 589 known rows).
+  # Floor set at 75.0% — catches meaningful regressions while tolerating
+  # minor alias-table edits.
+  min_top1_accuracy: 0.75
+
+  # Zero tolerance — primary safety metric.
+  # A false-confident error is a wrong result at confidence >= 0.80.
+  # It is always preferable to flag for manual review than to return the
+  # wrong species with high confidence.
+  max_false_confident_rate: 0.0

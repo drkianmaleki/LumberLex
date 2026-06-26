@@ -1,0 +1,16 @@
+canonical_name,species_group,category,treatment,ambiguity_level,notes
+Birch Plywood,Birch,Plywood/panel,,Medium,Panel products need grade/thickness normalization in addition to species.
+CDX Plywood,Plywood,Panel/sheathing,,Medium,"CDX is a plywood grade/construction term, not a species."
+Douglas Fir-Larch,Douglas Fir-Larch,Structural lumber,,Medium,Often abbreviated DF-L or sold as Douglas Fir/Doug Fir; may refer to a formal species combination.
+Hem-Fir,Hem-Fir,Structural/framing lumber,,Low,Hem-Fir is a species combination of Western Hemlock and true firs.
+MDF,Engineered wood,Panel/sheet goods,,Low,MDF is engineered fiberboard; not lumber species.
+Maple,Maple,Hardwood/appearance board,,High,"Maple may mean hard, soft, or mixed maple unless specified."
+OSB,Engineered wood,Panel/sheathing,,Low,OSB is an engineered panel; not solid lumber.
+Oak,Oak,Hardwood/appearance board,,High,Oak is broad; red/white oak should be separated if known.
+Ponderosa Pine,Pine,Appearance/common board,,Medium,Retailers may label pine boards broadly as pine/common board; exact pine species may not be explicit.
+Poplar,Poplar,Hardwood/appearance board,,Medium,Poplar may be labeled tulip poplar or yellow poplar; often appearance/project board.
+Pressure Treated Southern Yellow Pine,Southern Pine,Outdoor/ground-contact lumber,Pressure Treated,Medium,"Pressure-treated lumber in many U.S. markets is commonly pine/Southern Pine, but verify local supplier/species."
+SPF,Spruce-Pine-Fir,Dimensional framing lumber,,High,SPF is a species group; whitewood is a seller/trade term and exact species can vary.
+Southern Yellow Pine,Southern Pine,Structural lumber,,Medium,Southern Pine includes multiple pine species; SYP and yellow pine are common commercial terms.
+Western Red Cedar,Cedar,Outdoor/appearance lumber,,Medium,Cedar labels can be broad; Western Red Cedar is commonly abbreviated WRC.
+White Pine,Pine,Appearance/common board,,Medium,White pine may be sold as pine/common board/appearance board; not the same as whitewood.
