@@ -599,15 +599,80 @@ pip install -r apps/streamlit/requirements.txt
 streamlit run apps/streamlit/app.py
 ```
 
-### Adding aliases
+### Improving accuracy through data
 
-All alias data lives in `src/lumberlex/_data/aliases.csv` (canonical, bundled) and is mirrored at `config/thresholds.yml` for threshold tuning. To add a new alias:
+LumberLex is strictly data-driven — all species knowledge lives in data files, not in the matching algorithm. **Improving the data files is the primary lever for improving accuracy.** No code changes are needed for the most common improvements.
 
-1. Add a row to `src/lumberlex/_data/aliases.csv`
-2. Re-run `pytest -m "not llm"` to verify no regressions
-3. Run `python scripts/batch_eval.py` to check accuracy impact
+There are two sets of data files with different roles:
 
-Only developers can modify alias and canonical tables — no user-editable aliases in v0.
+#### `src/lumberlex/_data/` — the core knowledge base (bundled with the package)
+
+These are the files the matching engine reads at runtime. Edit these to expand what the system can recognize.
+
+| File | What it controls | How to improve |
+|------|-----------------|----------------|
+| `aliases.csv` | 201 alias → canonical mappings | **Add rows** to cover new seller strings, regional naming variants, abbreviations, or concatenated forms your inventory actually contains |
+| `canonicals.csv` | 15 canonical lumber types + metadata | **Add rows** to introduce entirely new species or product types not yet in the system |
+| `thresholds.yml` | Confidence band cutoffs | **Edit values** to tighten or loosen confidence scoring (see Configuration section) |
+
+**To add an alias** (most common improvement):
+```
+# src/lumberlex/_data/aliases.csv
+alias,canonical_name
+"Hem-Fir #2 2x6","Hem-Fir"          ← add rows like this
+"84 Lumber SYP Stud","Southern Yellow Pine"
+```
+
+**To add a canonical** (when covering an entirely new species):
+```
+# src/lumberlex/_data/canonicals.csv
+canonical_name,species_group,category,treatment,ambiguity_level,notes
+"Ponderosa Pine","Ponderosa Pine","Dimensional lumber","","Low","..."
+```
+
+After any edit to these files, run the validation cycle:
+```bash
+python scripts/inspect_alias_dict.py   # shows validation warnings instantly
+pytest -m "not llm"                    # 256 tests — catches regressions
+python scripts/batch_eval.py           # shows accuracy impact across all 596 rows
+```
+
+> Only developers can modify these files — no user-editable aliases in v0.
+
+---
+
+#### `data/` — evaluation and regression resources (not bundled, dev-only)
+
+These files are not used at runtime. They exist to measure and validate accuracy.
+
+| File | What it controls | How to improve |
+|------|-----------------|----------------|
+| `test_cases.csv` | 10 hand-crafted regression tests | **Add rows** to lock in correct behaviour for inputs you care about; every row becomes a permanent automated assertion |
+| `lumberlex_sample_database.csv` | 596-row evaluation database | **Add rows** to broaden the accuracy measurement; run `python scripts/batch_eval.py` to see the updated score |
+| `data_dictionary.md` | Schema documentation | Update when adding columns or changing field semantics |
+
+**To add a regression test case:**
+```
+# data/test_cases.csv
+input,expected_canonical,expected_size,confidence_min,notes
+"SYP Stud 2x4x8","Southern Yellow Pine","2x4x8",0.80,"SYP stud common form"
+```
+
+Each new row in `test_cases.csv` is automatically picked up by `tests/test_normalizer.py` — no test code changes needed.
+
+**The data improvement workflow:**
+
+```
+1. Identify a failing or low-confidence input
+       ↓
+2. Add the correct alias to src/lumberlex/_data/aliases.csv
+       ↓
+3. Add a regression row to data/test_cases.csv so it stays fixed
+       ↓
+4. Run: pytest -m "not llm"  →  python scripts/batch_eval.py
+       ↓
+5. Confirm accuracy improved, no regressions introduced
+```
 
 ---
 
