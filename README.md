@@ -3,10 +3,12 @@
 > **Lumber product name normalization engine**  
 > Map inconsistent retail strings like `"Lowes Whitewood Stud 2x4x8 #2&BTR KD"` to canonical lumber types with confidence scoring, treatment detection, and dimension extraction.
 
+![CI](https://github.com/drkianmaleki/LumberLex/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue?logo=python&logoColor=white)
 ![Tests](https://img.shields.io/badge/tests-256%20passing-brightgreen?logo=pytest&logoColor=white)
 ![Accuracy](https://img.shields.io/badge/top--1%20accuracy-88.5%25-success)
 ![False Confident](https://img.shields.io/badge/false--confident%20errors-0-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 ![Pydantic](https://img.shields.io/badge/Pydantic-v2-E92063?logo=pydantic&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 
