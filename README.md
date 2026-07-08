@@ -83,6 +83,10 @@ All nine phases are complete.
 git clone <repo-url>
 cd lumberlex
 
+python -m venv .venv                      # create an isolated virtual environment
+source .venv/bin/activate                 # macOS/Linux
+.venv\Scripts\activate                    # Windows (PowerShell/CMD)
+
 pip install -e .                          # install the lumberlex library (required)
 pip install -r requirements.txt           # install dev dependencies (pytest)
 
