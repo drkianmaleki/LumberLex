@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      # Tab 1 (offline normalizer) works with no key at all.
+      # Tab 2 (chatbot) needs a Groq key — put it in a .env file next to
+      # this docker-compose.yml (GROQ_API_KEY=gsk_...), or export it in
+      # your shell before running `docker compose up`.
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
