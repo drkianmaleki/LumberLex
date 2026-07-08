@@ -3,6 +3,8 @@
 > **Lumber product name normalization engine**  
 > Map inconsistent retail strings like `"Lowes Whitewood Stud 2x4x8 #2&BTR KD"` to canonical lumber types with confidence scoring, treatment detection, and dimension extraction.
 
+**🚀 [Try the live demo](https://lumberlexgit-nebht257q3nbymyvfjmcoh.streamlit.app/)** — no install required. (The app sleeps after periods of inactivity; if it's asleep, click "Yes, get this app back up!" and give it ~30 seconds.)
+
 ![CI](https://github.com/drkianmaleki/LumberLex/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue?logo=python&logoColor=white)
 ![Tests](https://img.shields.io/badge/tests-256%20passing-brightgreen?logo=pytest&logoColor=white)
@@ -11,7 +13,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Pydantic](https://img.shields.io/badge/Pydantic-v2-E92063?logo=pydantic&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
-
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
 ---
 
 ## What it does
@@ -78,6 +80,8 @@ All nine phases are complete.
 
 ## Quick Start
 
+### Option 1: Local Python
+
 ```bash
 # Clone and install
 git clone <repo-url>
@@ -105,6 +109,24 @@ pip install -r apps/chatbot/requirements.txt
 export GROQ_API_KEY=gsk_your_key_here    # free key at https://console.groq.com
 python apps/chatbot/chat.py
 ```
+
+### Option 2: Docker (no Python install needed)
+
+```bash
+git clone https://github.com/drkianmaleki/LumberLex.git
+cd LumberLex
+
+docker compose up --build                 # opens at http://localhost:8501
+```
+
+Tab 1 (Normalizer) works immediately — no key needed. To enable Tab 2 (Chatbot),
+create a `.env` file next to `docker-compose.yml` containing:
+
+```
+GROQ_API_KEY=gsk_your_key_here
+```
+
+then re-run `docker compose up --build`.
 
 ---
 
