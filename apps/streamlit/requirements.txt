@@ -1,3 +1,24 @@
+# LumberLex — Streamlit Community Cloud deployment requirements
+#
+# Versions are pinned to a verified, mutually-compatible stack.
+# The previous unpinned file resolved to pandas 3.0 / numpy 2.5 /
+# pyarrow 25, whose native C-extension interplay segfaulted Streamlit
+# at startup. These pins back off that bleeding edge.
+
+# The library itself, editable. Resolves to the repo root on Cloud.
 -e .
-streamlit
-groq
+
+# Native scientific stack — the segfault-sensitive layer. Keep pinned.
+numpy==2.2.6
+pandas==2.3.3
+pyarrow==24.0.0
+
+# App runtime
+streamlit==1.58.0
+groq==1.5.0
+
+# lumberlex runtime deps (also in pyproject.toml; pinned here so the
+# deployed environment is fully reproducible)
+pydantic==2.13.4
+rapidfuzz==3.14.5
+pyyaml==6.0.3
